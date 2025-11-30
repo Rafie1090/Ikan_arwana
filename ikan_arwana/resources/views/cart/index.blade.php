@@ -26,7 +26,7 @@
 
                             <!-- Product Image -->
                             <div class="flex-shrink-0">
-                                <img src="{{ asset('storage/' . $item['image']) }}" 
+                                <img src="{{ $item['image'] }}" 
                                      class="w-24 h-24 md:w-32 md:h-32 rounded-xl object-cover border border-slate-100">
                             </div>
 

@@ -15,7 +15,7 @@
             <div>
                 <div class="bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden p-6">
                     <div class="aspect-square rounded-xl overflow-hidden border border-slate-100 mb-4 relative group">
-                        <img src="{{ asset('storage/' . $product->image) }}" 
+                        <img src="{{ $product->image }}" 
                              class="w-full h-full object-cover" 
                              id="mainImage">
                         <div class="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition pointer-events-none"></div>

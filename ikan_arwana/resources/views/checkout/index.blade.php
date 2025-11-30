@@ -90,7 +90,7 @@
                         <div class="space-y-3 mb-6 max-h-64 overflow-y-auto">
                             @foreach($cart as $item)
                                 <div class="flex gap-3 pb-3 border-b border-slate-50">
-                                    <img src="{{ asset('storage/' . $item['image']) }}" 
+                                    <img src="{{ $item['image'] }}" 
                                          class="w-16 h-16 rounded-lg object-cover border border-slate-100">
                                     <div class="flex-1 min-w-0">
                                         <h4 class="text-sm font-semibold text-slate-900 truncate">{{ $item['name'] }}</h4>

@@ -47,7 +47,7 @@
                     <tr class="hover:bg-slate-50 transition">
                         <td class="px-6 py-4">
                             <div class="w-16 h-16 rounded-lg overflow-hidden border border-slate-200 bg-slate-50">
-                                <img src="{{ asset('storage/' . $product->image) }}" 
+                                <img src="{{ $product->image }}" 
                                      class="w-full h-full object-cover" 
                                      alt="{{ $product->name }}">
                             </div>
@@ -70,7 +70,7 @@
                             {{ \Illuminate\Support\Str::limit($product->description, 50) }}
                         </td>
                         <td class="px-6 py-4 text-right space-x-2">
-                            <button onclick="openEditModal({{ $product->id }}, '{{ $product->name }}', '{{ $product->price }}', '{{ $product->stock }}', `{{ $product->description }}`, '{{ asset('storage/' . $product->image) }}')"
+                            <button onclick="openEditModal({{ $product->id }}, '{{ $product->name }}', '{{ $product->price }}', '{{ $product->stock }}', `{{ $product->description }}`, '{{ $product->image }}')"
                                     class="text-blue-600 hover:text-blue-800 transition p-2 rounded-lg hover:bg-blue-50">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </button>

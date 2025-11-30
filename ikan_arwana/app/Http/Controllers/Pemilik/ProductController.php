@@ -27,8 +27,8 @@ class ProductController extends Controller
         // Upload image
         $imagePath = null;
         if ($request->hasFile('image')) {
-            $uploadedFile = $request->file('image')->storeOnCloudinary('products');
-            $imagePath = $uploadedFile->getSecurePath();
+            $path = $request->file('image')->store('products', 'cloudinary');
+            $imagePath = \Illuminate\Support\Facades\Storage::disk('cloudinary')->url($path);
         }
 
         Product::create([
@@ -89,8 +89,8 @@ class ProductController extends Controller
 
         // Upload image baru kalau ada
         if ($request->hasFile('image')) {
-            $uploadedFile = $request->file('image')->storeOnCloudinary('products');
-            $product->image = $uploadedFile->getSecurePath();
+            $path = $request->file('image')->store('products', 'cloudinary');
+            $product->image = \Illuminate\Support\Facades\Storage::disk('cloudinary')->url($path);
         }
 
         $product->name = $request->name;

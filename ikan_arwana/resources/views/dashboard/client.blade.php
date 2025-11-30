@@ -68,7 +68,7 @@
                 <div class="group bg-white rounded-2xl shadow-sm border border-slate-100 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition duration-300">
                     <!-- Image -->
                     <div class="relative pt-[100%] overflow-hidden bg-slate-100">
-                        <img src="{{ asset('storage/' . $product->image) }}" 
+                        <img src="{{ $product->image }}" 
                              class="absolute inset-0 w-full h-full object-cover transition duration-500 group-hover:scale-110">
                         
                         <!-- Badge -->
