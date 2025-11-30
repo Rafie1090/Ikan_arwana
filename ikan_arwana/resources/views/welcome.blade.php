@@ -73,9 +73,10 @@
 <body class="antialiased text-slate-800 bg-slate-50 page-animate">
 
     <!-- NAVBAR -->
-    <nav class="fixed w-full z-50 transition-all duration-300 bg-white/90 backdrop-blur-md shadow-sm" id="navbar">
+    <!-- NAVBAR -->
+    <nav class="fixed w-full z-50 transition-all duration-500 ease-in-out top-0" id="navbar">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
+            <div class="flex items-center justify-between h-20 transition-all duration-300" id="navbar-container">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center gap-3">
                     <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-10 h-10 object-contain">
@@ -84,8 +85,8 @@
                 
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center space-x-8">
-                    <a href="#home" class="text-sm font-semibold text-slate-600 hover:text-primary transition">Beranda</a>
-                    <a href="#panduan" class="text-sm font-semibold text-slate-600 hover:text-primary transition">Panduan</a>
+                    <a href="#home" class="text-sm font-semibold text-slate-700 hover:text-primary transition">Beranda</a>
+                    <a href="#panduan" class="text-sm font-semibold text-slate-700 hover:text-primary transition">Panduan</a>
                     
                     @if (Route::has('login'))
                         @auth
@@ -113,7 +114,7 @@
         </div>
 
         <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-slate-100 absolute w-full left-0 top-20 shadow-lg">
+        <div id="mobile-menu" class="hidden md:hidden bg-white/95 backdrop-blur-md border-t border-slate-100 absolute w-full left-0 top-full shadow-lg rounded-b-2xl">
             <div class="px-6 py-4 space-y-4 flex flex-col">
                 <a href="#home" class="text-sm font-semibold text-slate-600 hover:text-primary transition">Beranda</a>
                 <a href="#panduan" class="text-sm font-semibold text-slate-600 hover:text-primary transition">Panduan</a>
@@ -137,9 +138,31 @@
     </nav>
 
     <script>
-        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
+        const navbar = document.getElementById('navbar');
+        const navbarContainer = document.getElementById('navbar-container');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        // Scroll Effect
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                // Scrolled State (Floating Glass)
+                navbar.classList.add('bg-white/80', 'backdrop-blur-lg', 'shadow-lg', 'top-4', 'mx-4', 'rounded-full', 'max-w-7xl', 'left-0', 'right-0', 'mx-auto');
+                navbar.classList.remove('w-full');
+                navbarContainer.classList.remove('h-20');
+                navbarContainer.classList.add('h-16'); // Smaller height
+            } else {
+                // Top State (Transparent)
+                navbar.classList.remove('bg-white/80', 'backdrop-blur-lg', 'shadow-lg', 'top-4', 'mx-4', 'rounded-full', 'max-w-7xl', 'left-0', 'right-0', 'mx-auto');
+                navbar.classList.add('w-full');
+                navbarContainer.classList.add('h-20');
+                navbarContainer.classList.remove('h-16');
+            }
+        });
+
+        // Mobile Menu Toggle
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
         });
     </script>
 
