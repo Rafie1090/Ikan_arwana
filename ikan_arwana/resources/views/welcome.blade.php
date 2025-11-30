@@ -136,38 +136,7 @@
         </div>
     </nav>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const navbar = document.getElementById('navbar');
-            const navbarContainer = document.getElementById('navbar-container');
-            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-            const mobileMenu = document.getElementById('mobile-menu');
 
-            // Scroll Effect
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 20) {
-                    // Scrolled State (Floating Glass)
-                    navbar.classList.add('bg-white/80', 'backdrop-blur-lg', 'shadow-lg', 'top-4', 'mx-4', 'rounded-full', 'max-w-7xl', 'left-0', 'right-0', 'mx-auto');
-                    navbar.classList.remove('w-full');
-                    navbarContainer.classList.remove('h-20');
-                    navbarContainer.classList.add('h-16'); // Smaller height
-                } else {
-                    // Top State (Transparent)
-                    navbar.classList.remove('bg-white/80', 'backdrop-blur-lg', 'shadow-lg', 'top-4', 'mx-4', 'rounded-full', 'max-w-7xl', 'left-0', 'right-0', 'mx-auto');
-                    navbar.classList.add('w-full');
-                    navbarContainer.classList.add('h-20');
-                    navbarContainer.classList.remove('h-16');
-                }
-            });
-
-            // Mobile Menu Toggle
-            if(mobileMenuBtn) {
-                mobileMenuBtn.addEventListener('click', () => {
-                    mobileMenu.classList.toggle('hidden');
-                });
-            }
-        });
-    </script>
 
     <!-- HERO SECTION -->
     <section id="home" class="relative h-screen flex items-center justify-center hero-bg">
@@ -354,6 +323,37 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <!-- AOS Animation -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <script>
+        const navbar = document.getElementById('navbar');
+        const navbarContainer = document.getElementById('navbar-container');
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        // Scroll Effect
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                // Scrolled State (Floating Glass)
+                navbar.classList.add('bg-white/80', 'backdrop-blur-lg', 'shadow-lg', 'top-4', 'mx-4', 'rounded-full', 'max-w-7xl', 'left-0', 'right-0', 'mx-auto');
+                navbar.classList.remove('w-full');
+                navbarContainer.classList.remove('h-20');
+                navbarContainer.classList.add('h-16'); // Smaller height
+            } else {
+                // Top State (Transparent)
+                navbar.classList.remove('bg-white/80', 'backdrop-blur-lg', 'shadow-lg', 'top-4', 'mx-4', 'rounded-full', 'max-w-7xl', 'left-0', 'right-0', 'mx-auto');
+                navbar.classList.add('w-full');
+                navbarContainer.classList.add('h-20');
+                navbarContainer.classList.remove('h-16');
+            }
+        });
+
+        // Mobile Menu Toggle
+        if(mobileMenuBtn) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+    </script>
     
     <script>
         // Initialize Swiper
