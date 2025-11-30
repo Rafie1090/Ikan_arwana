@@ -1,8 +1,27 @@
 -- Pastikan menggunakan database yang benar
 USE test;
 
+-- ==========================================
+-- WARNING: INI AKAN MENGHAPUS SEMUA DATA LAMA
+-- ==========================================
+SET FOREIGN_KEY_CHECKS = 0;
+DROP TABLE IF EXISTS order_items;
+DROP TABLE IF EXISTS orders;
+DROP TABLE IF EXISTS jadwal_pakans;
+DROP TABLE IF EXISTS monitoring_air;
+DROP TABLE IF EXISTS kolams;
+DROP TABLE IF EXISTS products;
+DROP TABLE IF EXISTS sessions;
+DROP TABLE IF EXISTS password_reset_tokens;
+DROP TABLE IF EXISTS users;
+SET FOREIGN_KEY_CHECKS = 1;
+
+-- ==========================================
+-- CREATE NEW TABLES
+-- ==========================================
+
 -- 1. Users Table
-CREATE TABLE IF NOT EXISTS users (
+CREATE TABLE users (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
@@ -15,14 +34,14 @@ CREATE TABLE IF NOT EXISTS users (
 );
 
 -- 2. Password Reset Tokens Table
-CREATE TABLE IF NOT EXISTS password_reset_tokens (
+CREATE TABLE password_reset_tokens (
     email VARCHAR(255) PRIMARY KEY,
     token VARCHAR(255) NOT NULL,
     created_at TIMESTAMP NULL
 );
 
 -- 3. Sessions Table
-CREATE TABLE IF NOT EXISTS sessions (
+CREATE TABLE sessions (
     id VARCHAR(255) PRIMARY KEY,
     user_id BIGINT UNSIGNED NULL,
     ip_address VARCHAR(45) NULL,
@@ -34,7 +53,7 @@ CREATE TABLE IF NOT EXISTS sessions (
 );
 
 -- 4. Products Table
-CREATE TABLE IF NOT EXISTS products (
+CREATE TABLE products (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     description TEXT NULL,
@@ -46,7 +65,7 @@ CREATE TABLE IF NOT EXISTS products (
 );
 
 -- 5. Kolams Table
-CREATE TABLE IF NOT EXISTS kolams (
+CREATE TABLE kolams (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     nama_kolam VARCHAR(255) NOT NULL,
     lokasi VARCHAR(255) NULL,
@@ -57,7 +76,7 @@ CREATE TABLE IF NOT EXISTS kolams (
 );
 
 -- 6. Monitoring Air Table
-CREATE TABLE IF NOT EXISTS monitoring_air (
+CREATE TABLE monitoring_air (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     kolam_id BIGINT UNSIGNED NOT NULL,
     suhu DOUBLE(8, 2) NOT NULL,
@@ -70,7 +89,7 @@ CREATE TABLE IF NOT EXISTS monitoring_air (
 );
 
 -- 7. Jadwal Pakans Table
-CREATE TABLE IF NOT EXISTS jadwal_pakans (
+CREATE TABLE jadwal_pakans (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     kolam_id BIGINT UNSIGNED NOT NULL,
     tanggal DATE NOT NULL DEFAULT (CURRENT_DATE),
@@ -85,7 +104,7 @@ CREATE TABLE IF NOT EXISTS jadwal_pakans (
 );
 
 -- 8. Orders Table
-CREATE TABLE IF NOT EXISTS orders (
+CREATE TABLE orders (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     user_id BIGINT UNSIGNED NOT NULL,
     order_number VARCHAR(255) NOT NULL UNIQUE,
@@ -105,7 +124,7 @@ CREATE TABLE IF NOT EXISTS orders (
 );
 
 -- 9. Order Items Table
-CREATE TABLE IF NOT EXISTS order_items (
+CREATE TABLE order_items (
     id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     order_id BIGINT UNSIGNED NOT NULL,
     product_id BIGINT UNSIGNED NULL,

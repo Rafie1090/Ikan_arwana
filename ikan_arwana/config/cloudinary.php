@@ -33,7 +33,10 @@ return [
     |--------------------------------------------------------------------------
     */
     'notification_url' => env('CLOUDINARY_NOTIFICATION_URL'),
-    'cloud_url' => $url,
+    
+    // We set this to null to prevent the package from trying to parse it again
+    // and potentially failing or overwriting our manual 'cloud' config.
+    'cloud_url' => null,
 
     /*
     |--------------------------------------------------------------------------
