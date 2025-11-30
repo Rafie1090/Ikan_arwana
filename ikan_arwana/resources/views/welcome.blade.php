@@ -70,7 +70,7 @@
     <!-- AOS Animation -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
-<body class="antialiased text-slate-800 bg-slate-50 page-animate">
+<body class="antialiased text-slate-800 bg-slate-50">
 
     <!-- NAVBAR -->
     <nav class="fixed w-full z-50 transition-all duration-500 ease-in-out top-0" id="navbar">
@@ -139,6 +139,7 @@
 
 
     <!-- HERO SECTION -->
+    <main class="page-animate">
     <section id="home" class="relative h-screen flex items-center justify-center hero-bg">
         <div class="absolute inset-0 bg-gradient-to-b from-white/90 via-white/60 to-slate-50"></div>
         
@@ -299,6 +300,7 @@
             </a>
         </div>
     </section>
+    </main>
 
     <!-- FOOTER -->
     <footer class="bg-slate-950 text-slate-400 py-12 border-t border-slate-900">
