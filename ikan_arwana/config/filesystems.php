@@ -62,6 +62,9 @@ return [
 
         'cloudinary' => [
             'driver' => 'cloudinary',
+            'cloud_name' => config('cloudinary.cloud.cloud_name'),
+            'api_key' => config('cloudinary.cloud.api_key'),
+            'api_secret' => config('cloudinary.cloud.api_secret'),
         ],
 
     ],
