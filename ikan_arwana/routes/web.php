@@ -34,8 +34,17 @@ Route::get('/', function () {
 Route::get('/debug-db', function () {
     try {
         \DB::connection()->getPdo();
-        $userCount = \App\Models\User::count();
-        return "Database connection is working! Users count: " . $userCount . ". Database: " . \DB::connection()->getDatabaseName();
+        $tables = \DB::select('SHOW TABLES');
+        $tableNames = array_map(function($table) {
+            return array_values((array)$table)[0];
+        }, $tables);
+        
+        return [
+            'status' => 'Connected',
+            'database' => \DB::connection()->getDatabaseName(),
+            'tables' => $tableNames,
+            'users_count' => \App\Models\User::count(),
+        ];
     } catch (\Exception $e) {
         return "Could not connect to the database. Error: " . $e->getMessage();
     }
