@@ -33,12 +33,21 @@ Route::get('/', function () {
 
 Route::get('/debug-db', function () {
     try {
-        $dbName = \Illuminate\Support\Facades\DB::connection()->getDatabaseName();
-        $userCount = \Illuminate\Support\Facades\DB::table('users')->count();
-        return "Connected to database: $dbName. User count: $userCount";
+        \DB::connection()->getPdo();
+        $userCount = \App\Models\User::count();
+        return "Database connection is working! Users count: " . $userCount . ". Database: " . \DB::connection()->getDatabaseName();
     } catch (\Exception $e) {
-        return "Error: " . $e->getMessage();
+        return "Could not connect to the database. Error: " . $e->getMessage();
     }
+});
+
+Route::get('/debug-cloudinary', function () {
+    return [
+        'env_has_url' => !empty(env('CLOUDINARY_URL')),
+        'config_cloud_url' => config('cloudinary.cloud_url'),
+        'config_all' => config('cloudinary'),
+        'filesystems_cloudinary' => config('filesystems.disks.cloudinary'),
+    ];
 });
 
 // ======================
