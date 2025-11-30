@@ -78,6 +78,7 @@
             <div class="flex items-center justify-between h-20">
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center gap-3">
+                    <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-10 h-10 object-contain">
                     <span class="font-bold text-xl text-slate-900 tracking-tight">Ikan Arwana</span>
                 </div>
                 
@@ -308,9 +309,7 @@
     <footer class="bg-slate-950 text-slate-400 py-12 border-t border-slate-900">
         <div class="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
             <div class="flex items-center gap-3">
-                <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-white font-bold text-sm shadow-md shadow-blue-500/20">
-                    IA
-                </div>
+                <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-8 h-8 object-contain">
                 <span class="font-bold text-white">Ikan Arwana</span>
             </div>
             <div class="text-sm font-medium">

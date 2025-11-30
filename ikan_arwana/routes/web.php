@@ -31,33 +31,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/debug-db', function () {
-    try {
-        \DB::connection()->getPdo();
-        $tables = \DB::select('SHOW TABLES');
-        $tableNames = array_map(function($table) {
-            return array_values((array)$table)[0];
-        }, $tables);
-        
-        return [
-            'status' => 'Connected',
-            'database' => \DB::connection()->getDatabaseName(),
-            'tables' => $tableNames,
-            'users_count' => \App\Models\User::count(),
-        ];
-    } catch (\Exception $e) {
-        return "Could not connect to the database. Error: " . $e->getMessage();
-    }
-});
-
-Route::get('/debug-cloudinary', function () {
-    return [
-        'env_has_url' => !empty(env('CLOUDINARY_URL')),
-        'config_cloud_url' => config('cloudinary.cloud_url'),
-        'config_all' => config('cloudinary'),
-        'filesystems_cloudinary' => config('filesystems.disks.cloudinary'),
-    ];
-});
+// Debug routes removed
 
 // ======================
 // CART

@@ -207,9 +207,7 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
                 <div>
                     <div class="flex items-center gap-3 mb-4">
-                        <div class="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-lg flex items-center justify-center text-white font-bold text-xl">
-                            IA
-                        </div>
+                        <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-10 h-10 object-contain">
                         <span class="font-bold text-xl">Ikan Arwana</span>
                     </div>
                     <p class="text-slate-400 text-sm leading-relaxed">
