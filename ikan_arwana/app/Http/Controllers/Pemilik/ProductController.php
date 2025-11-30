@@ -27,12 +27,23 @@ class ProductController extends Controller
         // Upload image
         $imagePath = null;
         if ($request->hasFile('image')) {
-            // Manual upload using CloudinaryLabs Facade to bypass Storage driver issues
-            $uploadedFile = \CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary::upload(
+            // Bypass Laravel wrapper and use SDK directly
+            $cloudinary = new \Cloudinary\Cloudinary([
+                'cloud' => [
+                    'cloud_name' => env('CLOUDINARY_CLOUD_NAME'),
+                    'api_key'    => env('CLOUDINARY_API_KEY'),
+                    'api_secret' => env('CLOUDINARY_API_SECRET'),
+                ],
+                'url' => [
+                    'secure' => true
+                ]
+            ]);
+
+            $uploadedFile = $cloudinary->uploadApi()->upload(
                 $request->file('image')->getRealPath(),
                 ['folder' => 'products']
             );
-            $imagePath = $uploadedFile->getSecurePath();
+            $imagePath = $uploadedFile['secure_url'];
         }
 
         Product::create([
@@ -93,11 +104,22 @@ class ProductController extends Controller
 
         // Upload image baru jika ada
         if ($request->hasFile('image')) {
-            $uploadedFile = \CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary::upload(
+            $cloudinary = new \Cloudinary\Cloudinary([
+                'cloud' => [
+                    'cloud_name' => env('CLOUDINARY_CLOUD_NAME'),
+                    'api_key'    => env('CLOUDINARY_API_KEY'),
+                    'api_secret' => env('CLOUDINARY_API_SECRET'),
+                ],
+                'url' => [
+                    'secure' => true
+                ]
+            ]);
+
+            $uploadedFile = $cloudinary->uploadApi()->upload(
                 $request->file('image')->getRealPath(),
                 ['folder' => 'products']
             );
-            $imagePath = $uploadedFile->getSecurePath();
+            $imagePath = $uploadedFile['secure_url'];
             $product->image = $imagePath;
         }
 
