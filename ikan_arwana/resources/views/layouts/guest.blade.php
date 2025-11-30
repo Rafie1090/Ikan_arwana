@@ -69,7 +69,7 @@
     <div class="glass-card w-full max-w-md p-8 rounded-3xl shadow-2xl relative z-10 page-animate" data-aos="zoom-in">
         <!-- Logo -->
         <div class="flex justify-center mb-6">
-            <img src="{{ asset('images/logo.jpg') }}" alt="Logo" class="w-16 h-16 object-contain drop-shadow-lg">
+            <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-16 h-16 object-contain drop-shadow-lg">
         </div>
 
         {{ $slot }}
