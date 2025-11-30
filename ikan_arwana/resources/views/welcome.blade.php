@@ -75,28 +75,39 @@
     <!-- Sidebar Logic -->
     @auth
         @if(Auth::user()->role == 'pemilik')
-            @include('partials.sidebar-pemilik')
+            @include('partials.sidebar-pemilik', ['fixedOnDesktop' => false])
         @elseif(Auth::user()->role == 'staff')
-            @include('partials.sidebar-staff')
+            @include('partials.sidebar-staff', ['fixedOnDesktop' => false])
         @endif
     @endauth
 
     <!-- Main Content Wrapper -->
-    <div class="{{ (Auth::check() && (Auth::user()->role == 'pemilik' || Auth::user()->role == 'staff')) ? 'md:ml-64 transition-all duration-300' : '' }}">
+    <div class="transition-all duration-300">
 
         <!-- NAVBAR -->
-        <nav id="navbar" class="fixed top-0 z-40 transition-all duration-300 w-full {{ (Auth::check() && (Auth::user()->role == 'pemilik' || Auth::user()->role == 'staff')) ? 'md:w-[calc(100%-16rem)] md:right-0' : '' }}">
+        <nav id="navbar" class="fixed top-0 z-40 transition-all duration-300 w-full">
             <div id="navbar-container" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between transition-all duration-300">
                 
-                <!-- Logo -->
-                <a href="{{ url('/') }}" class="flex items-center gap-3 group">
-                    <div class="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-blue-500/30 group-hover:scale-110 transition duration-300">
-                        IA
-                    </div>
-                    <span class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-700">
-                        Ikan Arwana
-                    </span>
-                </a>
+                <div class="flex items-center gap-4">
+                    <!-- Sidebar Toggle (Desktop & Mobile for Auth Users) -->
+                    @auth
+                        @if(Auth::user()->role == 'pemilik' || Auth::user()->role == 'staff')
+                            <button id="sidebar-toggle-btn" class="w-10 h-10 rounded-xl bg-white/50 hover:bg-white text-slate-700 hover:text-primary flex items-center justify-center transition shadow-sm backdrop-blur-sm">
+                                <i class="fa-solid fa-bars text-lg"></i>
+                            </button>
+                        @endif
+                    @endauth
+
+                    <!-- Logo -->
+                    <a href="{{ url('/') }}" class="flex items-center gap-3 group">
+                        <div class="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-blue-500/30 group-hover:scale-110 transition duration-300">
+                            IA
+                        </div>
+                        <span class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-700">
+                            Ikan Arwana
+                        </span>
+                    </a>
+                </div>
 
                 <!-- Desktop Menu -->
                 <div class="hidden md:flex items-center gap-8">
@@ -406,6 +417,7 @@
         const sidebar = document.getElementById('sidebar');
         const sidebarOverlay = document.getElementById('sidebar-overlay');
         const sidebarClose = document.getElementById('sidebar-close');
+        const sidebarToggleBtn = document.getElementById('sidebar-toggle-btn');
 
         // Scroll Effect
         window.addEventListener('scroll', () => {
@@ -424,20 +436,30 @@
             }
         });
 
-        // Mobile Menu / Sidebar Toggle
+        function toggleSidebar() {
+            if (sidebar) {
+                sidebar.classList.toggle('-translate-x-full');
+                if(sidebarOverlay) {
+                    sidebarOverlay.classList.toggle('hidden');
+                    setTimeout(() => {
+                        sidebarOverlay.classList.toggle('opacity-0');
+                    }, 10);
+                }
+            }
+        }
+
+        // Sidebar Toggle Button (Desktop & Mobile Auth)
+        if(sidebarToggleBtn) {
+            sidebarToggleBtn.addEventListener('click', toggleSidebar);
+        }
+
+        // Mobile Menu Toggle (Non-Auth or Client)
         if(mobileMenuBtn) {
             mobileMenuBtn.addEventListener('click', () => {
-                if (sidebar) {
-                    // Toggle Sidebar if present
-                    sidebar.classList.toggle('-translate-x-full');
-                    if(sidebarOverlay) {
-                        sidebarOverlay.classList.toggle('hidden');
-                        setTimeout(() => {
-                            sidebarOverlay.classList.toggle('opacity-0');
-                        }, 10);
-                    }
+                // If sidebar exists (Auth user), use sidebar toggle instead
+                if(sidebar) {
+                    toggleSidebar();
                 } else {
-                    // Toggle Normal Mobile Menu
                     mobileMenu.classList.toggle('hidden');
                 }
             });
