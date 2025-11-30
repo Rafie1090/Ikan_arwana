@@ -100,9 +100,7 @@
 
                     <!-- Logo -->
                     <a href="{{ url('/') }}" class="flex items-center gap-3 group">
-                        <div class="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-blue-500/30 group-hover:scale-110 transition duration-300">
-                            IA
-                        </div>
+                        <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-10 h-10 object-contain group-hover:scale-110 transition duration-300">
                         <span class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-700">
                             Ikan Arwana
                         </span>
