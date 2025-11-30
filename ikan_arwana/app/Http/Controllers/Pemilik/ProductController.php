@@ -27,8 +27,12 @@ class ProductController extends Controller
         // Upload image
         $imagePath = null;
         if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('products', 'cloudinary');
-            $imagePath = \Illuminate\Support\Facades\Storage::disk('cloudinary')->url($path);
+            // Manual upload using CloudinaryLabs Facade to bypass Storage driver issues
+            $uploadedFile = \CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary::upload(
+                $request->file('image')->getRealPath(),
+                ['folder' => 'products']
+            );
+            $imagePath = $uploadedFile->getSecurePath();
         }
 
         Product::create([
@@ -87,10 +91,14 @@ class ProductController extends Controller
 
         $product = Product::findOrFail($id);
 
-        // Upload image baru kalau ada
+        // Upload image baru jika ada
         if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('products', 'cloudinary');
-            $product->image = \Illuminate\Support\Facades\Storage::disk('cloudinary')->url($path);
+            $uploadedFile = \CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary::upload(
+                $request->file('image')->getRealPath(),
+                ['folder' => 'products']
+            );
+            $imagePath = $uploadedFile->getSecurePath();
+            $product->image = $imagePath;
         }
 
         $product->name = $request->name;
