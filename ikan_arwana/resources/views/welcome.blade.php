@@ -72,20 +72,37 @@
 </head>
 <body class="antialiased text-slate-800 bg-slate-50">
 
-    <!-- NAVBAR -->
-    <nav class="fixed w-full z-50 transition-all duration-500 ease-in-out top-0" id="navbar">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20 transition-all duration-300" id="navbar-container">
-                <!-- Logo -->
-                <div class="flex-shrink-0 flex items-center gap-3">
-                    <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-10 h-10 object-contain">
-                    <span class="font-bold text-xl text-slate-900 tracking-tight">Ikan Arwana</span>
-                </div>
+    <!-- Sidebar Logic -->
+    @auth
+        @if(Auth::user()->role == 'pemilik')
+            @include('partials.sidebar-pemilik')
+        @elseif(Auth::user()->role == 'staff')
+            @include('partials.sidebar-staff')
+        @endif
+    @endauth
+
+    <!-- Main Content Wrapper -->
+    <div class="{{ (Auth::check() && (Auth::user()->role == 'pemilik' || Auth::user()->role == 'staff')) ? 'md:ml-64 transition-all duration-300' : '' }}">
+
+        <!-- NAVBAR -->
+        <nav id="navbar" class="fixed top-0 z-40 transition-all duration-300 w-full {{ (Auth::check() && (Auth::user()->role == 'pemilik' || Auth::user()->role == 'staff')) ? 'md:w-[calc(100%-16rem)] md:right-0' : '' }}">
+            <div id="navbar-container" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between transition-all duration-300">
                 
+                <!-- Logo -->
+                <a href="{{ url('/') }}" class="flex items-center gap-3 group">
+                    <div class="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-xl flex items-center justify-center text-white font-bold text-xl shadow-lg shadow-blue-500/30 group-hover:scale-110 transition duration-300">
+                        IA
+                    </div>
+                    <span class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-700">
+                        Ikan Arwana
+                    </span>
+                </a>
+
                 <!-- Desktop Menu -->
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="#home" class="text-sm font-semibold text-slate-700 hover:text-primary transition">Beranda</a>
-                    <a href="#panduan" class="text-sm font-semibold text-slate-700 hover:text-primary transition">Panduan</a>
+                <div class="hidden md:flex items-center gap-8">
+                    <a href="#home" class="text-sm font-medium text-slate-600 hover:text-primary transition relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full">Home</a>
+                    <a href="#panduan" class="text-sm font-medium text-slate-600 hover:text-primary transition relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full">Panduan</a>
+                    <a href="#galeri" class="text-sm font-medium text-slate-600 hover:text-primary transition relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full">Galeri</a>
                     
                     @if (Route::has('login'))
                         @auth
@@ -384,6 +401,11 @@
         const navbarContainer = document.getElementById('navbar-container');
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
+        
+        // Sidebar Elements
+        const sidebar = document.getElementById('sidebar');
+        const sidebarOverlay = document.getElementById('sidebar-overlay');
+        const sidebarClose = document.getElementById('sidebar-close');
 
         // Scroll Effect
         window.addEventListener('scroll', () => {
@@ -402,11 +424,44 @@
             }
         });
 
-        // Mobile Menu Toggle
+        // Mobile Menu / Sidebar Toggle
         if(mobileMenuBtn) {
             mobileMenuBtn.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
+                if (sidebar) {
+                    // Toggle Sidebar if present
+                    sidebar.classList.toggle('-translate-x-full');
+                    if(sidebarOverlay) {
+                        sidebarOverlay.classList.toggle('hidden');
+                        setTimeout(() => {
+                            sidebarOverlay.classList.toggle('opacity-0');
+                        }, 10);
+                    }
+                } else {
+                    // Toggle Normal Mobile Menu
+                    mobileMenu.classList.toggle('hidden');
+                }
             });
+        }
+
+        // Sidebar Close Logic
+        function closeSidebar() {
+            if(sidebar) {
+                sidebar.classList.add('-translate-x-full');
+                if(sidebarOverlay) {
+                    sidebarOverlay.classList.add('opacity-0');
+                    setTimeout(() => {
+                        sidebarOverlay.classList.add('hidden');
+                    }, 300);
+                }
+            }
+        }
+
+        if (sidebarClose) {
+            sidebarClose.addEventListener('click', closeSidebar);
+        }
+
+        if (sidebarOverlay) {
+            sidebarOverlay.addEventListener('click', closeSidebar);
         }
     </script>
     
@@ -452,6 +507,6 @@
             offset: 50,
         });
     </script>
-
+    </div> <!-- End Main Content Wrapper -->
 </body>
 </html>
