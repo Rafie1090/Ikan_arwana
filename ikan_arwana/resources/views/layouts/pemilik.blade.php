@@ -87,6 +87,11 @@
 
             <!-- Menu -->
             <nav class="flex-1 overflow-y-auto p-4 space-y-1">
+                <a href="{{ url('/') }}" 
+                   class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-slate-600 hover:bg-slate-50 hover:text-primary transition">
+                    <i class="fa-solid fa-home w-5"></i> Halaman Utama
+                </a>
+
                 <a href="{{ route('pemilik.dashboard') }}" 
                    class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition
                           {{ request()->routeIs('pemilik.dashboard') ? 'bg-primary text-white shadow-lg shadow-indigo-500/30' : 'text-slate-600 hover:bg-slate-50 hover:text-primary' }}">

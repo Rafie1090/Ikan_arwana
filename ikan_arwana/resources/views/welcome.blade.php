@@ -89,9 +89,41 @@
                     
                     @if (Route::has('login'))
                         @auth
-                            <a href="{{ url('/dashboard') }}" class="px-6 py-2.5 bg-primary text-white text-sm font-bold rounded-full hover:bg-primaryDark transition shadow-lg shadow-blue-500/30">
-                                Dashboard
-                            </a>
+                            <div class="relative group hidden md:block">
+                                <button class="flex items-center gap-2 px-4 py-2 rounded-full hover:bg-slate-100 transition">
+                                    <div class="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-bold text-sm">
+                                        {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                                    </div>
+                                    <span class="hidden md:block font-medium text-slate-700">{{ Auth::user()->name }}</span>
+                                    <i class="fa-solid fa-chevron-down text-xs text-slate-400"></i>
+                                </button>
+                                <!-- Dropdown -->
+                                <div class="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl py-2 border border-slate-100 hidden group-hover:block">
+                                    @php
+                                        $dashboardRoute = 'dashboard';
+                                        if(Auth::user()->role == 'pemilik') $dashboardRoute = 'pemilik.dashboard';
+                                        elseif(Auth::user()->role == 'staff') $dashboardRoute = 'staff.dashboard';
+                                    @endphp
+                                    
+                                    <a href="{{ route($dashboardRoute) }}" class="block px-4 py-2 hover:bg-slate-50 text-slate-700">
+                                        <i class="fa-solid fa-gauge-high w-5"></i> Dashboard
+                                    </a>
+                                    
+                                    @if(Auth::user()->role == 'client')
+                                        <a href="{{ route('profile.edit') }}" class="block px-4 py-2 hover:bg-slate-50 text-slate-700">
+                                            <i class="fa-regular fa-user w-5"></i> Profil Saya
+                                        </a>
+                                    @endif
+
+                                    <div class="border-t border-slate-100 my-1"></div>
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf
+                                        <button class="block w-full text-left px-4 py-2 text-red-600 hover:bg-red-50">
+                                            <i class="fa-solid fa-right-from-bracket w-5"></i> Logout
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
                         @else
                             <div class="flex items-center gap-4">
                                 <a href="{{ route('login') }}" class="text-sm font-bold text-slate-900 hover:text-primary transition">Log in</a>
@@ -120,9 +152,30 @@
                 
                 @if (Route::has('login'))
                     @auth
-                        <a href="{{ url('/dashboard') }}" class="px-6 py-2.5 bg-primary text-white text-sm font-bold rounded-full hover:bg-primaryDark transition shadow-lg shadow-blue-500/30 text-center">
-                            Dashboard
+                        <div class="border-t border-slate-100 my-2"></div>
+                        <div class="flex items-center gap-3 py-2">
+                            <div class="w-8 h-8 bg-primary text-white rounded-full flex items-center justify-center font-bold text-sm">
+                                {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                            </div>
+                            <span class="font-medium text-slate-700">{{ Auth::user()->name }}</span>
+                        </div>
+                        
+                        @php
+                            $dashboardRoute = 'dashboard';
+                            if(Auth::user()->role == 'pemilik') $dashboardRoute = 'pemilik.dashboard';
+                            elseif(Auth::user()->role == 'staff') $dashboardRoute = 'staff.dashboard';
+                        @endphp
+
+                        <a href="{{ route($dashboardRoute) }}" class="text-sm font-semibold text-slate-600 hover:text-primary transition block py-1">
+                            <i class="fa-solid fa-gauge-high w-5"></i> Dashboard
                         </a>
+
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button class="text-sm font-bold text-red-600 hover:text-red-700 transition w-full text-left py-1">
+                                <i class="fa-solid fa-right-from-bracket w-5"></i> Logout
+                            </button>
+                        </form>
                     @else
                         <div class="flex flex-col gap-3 mt-2">
                             <a href="{{ route('login') }}" class="text-sm font-bold text-slate-900 hover:text-primary transition text-center py-2">Log in</a>
