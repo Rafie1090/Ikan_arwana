@@ -31,6 +31,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/debug-db', function () {
+    try {
+        $dbName = \Illuminate\Support\Facades\DB::connection()->getDatabaseName();
+        $userCount = \Illuminate\Support\Facades\DB::table('users')->count();
+        return "Connected to database: $dbName. User count: $userCount";
+    } catch (\Exception $e) {
+        return "Error: " . $e->getMessage();
+    }
+});
+
 // ======================
 // CART
 // ======================
