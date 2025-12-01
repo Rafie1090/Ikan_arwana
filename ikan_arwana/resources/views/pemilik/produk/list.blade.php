@@ -61,6 +61,10 @@
                                 Rp {{ number_format($product->price, 0, ',', '.') }}
                             </span>
                         </td>
+                        <td class="px-6 py-4">
+                            <span class="px-3 py-1 rounded-full text-xs font-bold 
+                                {{ $product->stock > 0 ? 'bg-emerald-50 text-emerald-600' : 'bg-red-50 text-red-600' }}">
+                                {{ $product->stock }} Unit
                             </span>
                         </td>
                         <td class="px-6 py-4">

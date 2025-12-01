@@ -32,15 +32,7 @@ Route::get('/', function () {
 });
 
 // Temporary Migration Route
-// Temporary Migration Route
-Route::get('/migrate-db', function () {
-    try {
-        \Illuminate\Support\Facades\DB::statement("ALTER TABLE products ADD COLUMN category ENUM('peliharaan', 'produk') DEFAULT 'peliharaan' AFTER description");
-        return 'Database Fixed Successfully (Column Added via SQL)!';
-    } catch (\Exception $e) {
-        return 'Error: ' . $e->getMessage();
-    }
-});
+// Temporary Migration Route removed
 
 // Debug routes removed
 
