@@ -38,6 +38,7 @@
                         <th class="px-6 py-4 font-semibold">Nama Produk</th>
                         <th class="px-6 py-4 font-semibold">Harga</th>
                         <th class="px-6 py-4 font-semibold">Stok</th>
+                        <th class="px-6 py-4 font-semibold">Kategori</th>
                         <th class="px-6 py-4 font-semibold">Deskripsi</th>
                         <th class="px-6 py-4 font-semibold text-right">Aksi</th>
                     </tr>
@@ -60,17 +61,18 @@
                                 Rp {{ number_format($product->price, 0, ',', '.') }}
                             </span>
                         </td>
+                            </span>
+                        </td>
                         <td class="px-6 py-4">
-                            <span class="px-3 py-1 rounded-full text-xs font-bold 
-                                {{ $product->stock > 0 ? 'bg-emerald-50 text-emerald-600' : 'bg-red-50 text-red-600' }}">
-                                {{ $product->stock }} Unit
+                            <span class="px-3 py-1 rounded-full text-xs font-bold bg-slate-100 text-slate-600 capitalize">
+                                {{ $product->category }}
                             </span>
                         </td>
                         <td class="px-6 py-4 text-slate-600 text-sm max-w-xs truncate">
                             {{ \Illuminate\Support\Str::limit($product->description, 50) }}
                         </td>
                         <td class="px-6 py-4 text-right space-x-2">
-                            <button onclick="openEditModal({{ $product->id }}, '{{ $product->name }}', '{{ $product->price }}', '{{ $product->stock }}', `{{ $product->description }}`, '{{ $product->image }}')"
+                            <button onclick="openEditModal({{ $product->id }}, '{{ $product->name }}', '{{ $product->price }}', '{{ $product->stock }}', `{{ $product->description }}`, '{{ $product->image }}', '{{ $product->category }}')"
                                     class="text-blue-600 hover:text-blue-800 transition p-2 rounded-lg hover:bg-blue-50">
                                 <i class="fa-solid fa-pen-to-square"></i>
                             </button>
@@ -135,6 +137,14 @@
                     </div>
 
                     <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Kategori</label>
+                        <select name="category" class="w-full rounded-xl border-slate-200 focus:border-primary focus:ring-primary" required>
+                            <option value="peliharaan">Peliharaan (Ikan)</option>
+                            <option value="produk">Produk (Pakan/Alat)</option>
+                        </select>
+                    </div>
+
+                    <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1">Deskripsi</label>
                         <textarea name="description" rows="3" class="w-full rounded-xl border-slate-200 focus:border-primary focus:ring-primary" required></textarea>
                     </div>
@@ -188,6 +198,14 @@
                     </div>
 
                     <div>
+                        <label class="block text-sm font-medium text-slate-700 mb-1">Kategori</label>
+                        <select id="editCategory" name="category" class="w-full rounded-xl border-slate-200 focus:border-primary focus:ring-primary" required>
+                            <option value="peliharaan">Peliharaan (Ikan)</option>
+                            <option value="produk">Produk (Pakan/Alat)</option>
+                        </select>
+                    </div>
+
+                    <div>
                         <label class="block text-sm font-medium text-slate-700 mb-1">Deskripsi</label>
                         <textarea id="editDescription" name="description" rows="3" class="w-full rounded-xl border-slate-200 focus:border-primary focus:ring-primary" required></textarea>
                     </div>
@@ -214,12 +232,13 @@
 </div>
 
 <script>
-    function openEditModal(id, name, price, stock, description, imageUrl) {
+    function openEditModal(id, name, price, stock, description, imageUrl, category) {
         document.getElementById('editName').value = name;
         document.getElementById('editPrice').value = price;
         document.getElementById('editStock').value = stock;
         document.getElementById('editDescription').value = description;
         document.getElementById('editImagePreview').src = imageUrl;
+        document.getElementById('editCategory').value = category;
 
         document.getElementById('editForm').action = "/pemilik/produk/update/" + id;
         document.getElementById('editModal').classList.remove('hidden');

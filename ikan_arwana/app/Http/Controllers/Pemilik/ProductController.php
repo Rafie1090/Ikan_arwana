@@ -21,6 +21,7 @@ class ProductController extends Controller
             'name' => 'required',
             'price' => 'required|numeric',
             'stock' => 'required|numeric|min:0',
+            'category' => 'required|in:peliharaan,produk',
             'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
         ]);
 
@@ -50,6 +51,7 @@ class ProductController extends Controller
             'name' => $request->name,
             'price' => $request->price,
             'stock' => $request->stock,   // ⬅ Stok dimasukkan
+            'category' => $request->category,
             'description' => $request->description,
             'image' => $imagePath,
         ]);
@@ -97,6 +99,7 @@ class ProductController extends Controller
             'name' => 'required',
             'price' => 'required|numeric',
             'stock' => 'required|numeric|min:0',
+            'category' => 'required|in:peliharaan,produk',
             'image' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
         ]);
 
@@ -126,6 +129,7 @@ class ProductController extends Controller
         $product->name = $request->name;
         $product->price = $request->price;
         $product->stock = $request->stock;  // ⬅ stok diupdate
+        $product->category = $request->category;
         $product->description = $request->description;
         $product->save();
 

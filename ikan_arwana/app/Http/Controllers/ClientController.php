@@ -23,6 +23,11 @@ class ClientController extends Controller
             });
         }
 
+        // FILTER KATEGORI
+        if ($request->has('category') && in_array($request->category, ['peliharaan', 'produk'])) {
+            $products->where('category', $request->category);
+        }
+
         // FILTER TERBARU / TERMURAH / TERMAHAL
         if ($sort == 'terbaru') {
             $products->orderBy('created_at', 'desc');
@@ -35,6 +40,7 @@ class ClientController extends Controller
         return view('dashboard.client', [
             'products' => $products->get(),
             'sort' => $sort,
+            'category' => $request->category,
         ]);
     }
 
