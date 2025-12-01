@@ -60,8 +60,21 @@
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased">
 
+    <div class="flex min-h-screen">
+        <!-- SIDEBAR (Only for Pemilik & Staff) -->
+        @auth
+            @if(Auth::user()->role == 'pemilik')
+                @include('partials.sidebar-pemilik', ['fixedOnDesktop' => true])
+            @elseif(Auth::user()->role == 'staff')
+                @include('partials.sidebar-staff', ['fixedOnDesktop' => true])
+            @endif
+        @endauth
+
+        <!-- MAIN CONTENT WRAPPER -->
+        <div class="flex-1 flex flex-col w-full transition-all duration-300 {{ (Auth::check() && (Auth::user()->role == 'pemilik' || Auth::user()->role == 'staff')) ? 'md:ml-64' : '' }}">
+
     <!-- NAVBAR -->
-    <nav class="fixed w-full z-50 transition-all duration-500 ease-in-out top-0" id="navbar">
+    <nav class="fixed z-50 transition-all duration-500 ease-in-out top-0 {{ (Auth::check() && (Auth::user()->role == 'pemilik' || Auth::user()->role == 'staff')) ? 'w-[calc(100%-16rem)] right-0' : 'w-full' }}" id="navbar">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="flex items-center justify-between h-20 transition-all duration-300" id="navbar-container">
                 <div class="flex items-center gap-3">
@@ -111,6 +124,16 @@
                             </button>
                             <!-- Dropdown -->
                             <div class="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl py-2 border border-slate-100 hidden group-hover:block">
+                                @if(Auth::user()->role == 'pemilik')
+                                    <a href="{{ route('pemilik.dashboard') }}" class="block px-4 py-2 hover:bg-slate-50 text-slate-700">
+                                        <i class="fa-solid fa-gauge-high w-5"></i> Dashboard
+                                    </a>
+                                @elseif(Auth::user()->role == 'staff')
+                                    <a href="{{ route('staff.dashboard') }}" class="block px-4 py-2 hover:bg-slate-50 text-slate-700">
+                                        <i class="fa-solid fa-gauge-high w-5"></i> Dashboard
+                                    </a>
+                                @endif
+
                                 <a href="{{ route('profile.edit') }}" class="block px-4 py-2 hover:bg-slate-50 text-slate-700">
                                     <i class="fa-regular fa-user w-5"></i> Profil Saya
                                 </a>
@@ -233,7 +256,7 @@
                 <div>
                     <div class="flex items-center gap-3 mb-4">
                         <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-10 h-10 object-contain">
-                        <span class="font-bold text-xl">Ikan Arwana</span>
+                        <span class="font-bold text-xl">NourAlra</span>
                     </div>
                     <p class="text-slate-400 text-sm leading-relaxed">
                         Platform budidaya ikan arwana modern dengan teknologi terkini untuk hasil maksimal.
@@ -275,7 +298,7 @@
             </div>
 
             <div class="border-t border-slate-700 pt-8 text-center text-sm text-slate-400">
-                &copy; {{ date('Y') }} Ikan Arwana. All rights reserved.
+                &copy; {{ date('Y') }} NourAlra. All rights reserved.
             </div>
         </div>
     </footer>
@@ -305,5 +328,6 @@
         });
     </script>
     @stack('scripts')
+    </div> <!-- End Main Content Wrapper -->
 </body>
 </html>
