@@ -34,11 +34,12 @@ Route::get('/', function () {
 // Temporary Migration Route
 // Temporary Migration Route
 Route::get('/migrate-db', function () {
-    \Illuminate\Support\Facades\Artisan::call('migrate', [
-        '--path' => 'database/migrations/2025_12_01_150700_add_category_to_products_table.php',
-        '--force' => true
-    ]);
-    return 'Database Migrated Successfully (Category Column Added)!';
+    try {
+        \Illuminate\Support\Facades\DB::statement("ALTER TABLE products ADD COLUMN category ENUM('peliharaan', 'produk') DEFAULT 'peliharaan' AFTER description");
+        return 'Database Fixed Successfully (Column Added via SQL)!';
+    } catch (\Exception $e) {
+        return 'Error: ' . $e->getMessage();
+    }
 });
 
 // Debug routes removed
