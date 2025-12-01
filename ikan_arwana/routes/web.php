@@ -31,6 +31,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Temporary Migration Route
+Route::get('/migrate-db', function () {
+    \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
+    return 'Database Migrated Successfully!';
+});
+
 // Debug routes removed
 
 // ======================
