@@ -64,17 +64,17 @@
         <!-- SIDEBAR (Only for Pemilik & Staff) -->
         @auth
             @if(Auth::user()->role == 'pemilik')
-                @include('partials.sidebar-pemilik', ['fixedOnDesktop' => true])
+                @include('partials.sidebar-pemilik', ['fixedOnDesktop' => false])
             @elseif(Auth::user()->role == 'staff')
-                @include('partials.sidebar-staff', ['fixedOnDesktop' => true])
+                @include('partials.sidebar-staff', ['fixedOnDesktop' => false])
             @endif
         @endauth
 
         <!-- MAIN CONTENT WRAPPER -->
-        <div class="flex-1 flex flex-col w-full transition-all duration-300 {{ (Auth::check() && (Auth::user()->role == 'pemilik' || Auth::user()->role == 'staff')) ? 'md:ml-64' : '' }}">
+        <div class="flex-1 flex flex-col w-full transition-all duration-300">
 
     <!-- NAVBAR -->
-    <nav class="fixed z-50 transition-all duration-500 ease-in-out top-0 {{ (Auth::check() && (Auth::user()->role == 'pemilik' || Auth::user()->role == 'staff')) ? 'w-[calc(100%-16rem)] right-0' : 'w-full' }}" id="navbar">
+    <nav class="fixed z-50 transition-all duration-500 ease-in-out top-0 w-full" id="navbar">
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="flex items-center justify-between h-20 transition-all duration-300" id="navbar-container">
                 <div class="flex items-center gap-3">
@@ -259,19 +259,14 @@
 
         if (sidebar && sidebarToggleBtn) {
             sidebarToggleBtn.addEventListener('click', () => {
-                // Toggle Sidebar Visibility
+                // Toggle Sidebar Visibility (Overlay Mode)
                 sidebar.classList.toggle('-translate-x-full');
-                
-                // Toggle Main Content Margin
-                mainContentWrapper.classList.toggle('md:ml-64');
-                
-                // Toggle Navbar Width
-                if (navbar.classList.contains('w-[calc(100%-16rem)]')) {
-                    navbar.classList.remove('w-[calc(100%-16rem)]', 'right-0');
-                    navbar.classList.add('w-full');
-                } else {
-                    navbar.classList.add('w-[calc(100%-16rem)]', 'right-0');
-                    navbar.classList.remove('w-full');
+            });
+            
+            // Close sidebar when clicking outside (optional but good for UX)
+            document.addEventListener('click', (e) => {
+                if (!sidebar.contains(e.target) && !sidebarToggleBtn.contains(e.target) && !sidebar.classList.contains('-translate-x-full')) {
+                    sidebar.classList.add('-translate-x-full');
                 }
             });
         }
