@@ -71,7 +71,7 @@
                 <a href="{{ route('pemilik.product.list') }}" 
                    class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition
                           {{ request()->routeIs('pemilik.product.list') ? 'bg-primary text-white shadow-lg shadow-indigo-500/30' : 'text-slate-600 hover:bg-slate-50 hover:text-primary' }}">
-                    <i class="fa-solid fa-box-open w-5"></i> Manajemen Produk
+                    <i class="fa-solid fa-box-open w-5"></i> manajemen penjualan
                 </a>
 
                 <a href="{{ route('pemilik.users.index') }}" 
