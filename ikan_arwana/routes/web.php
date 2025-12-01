@@ -32,9 +32,13 @@ Route::get('/', function () {
 });
 
 // Temporary Migration Route
+// Temporary Migration Route
 Route::get('/migrate-db', function () {
-    \Illuminate\Support\Facades\Artisan::call('migrate', ['--force' => true]);
-    return 'Database Migrated Successfully!';
+    \Illuminate\Support\Facades\Artisan::call('migrate', [
+        '--path' => 'database/migrations/2025_12_01_150700_add_category_to_products_table.php',
+        '--force' => true
+    ]);
+    return 'Database Migrated Successfully (Category Column Added)!';
 });
 
 // Debug routes removed
