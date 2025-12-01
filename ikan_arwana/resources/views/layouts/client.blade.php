@@ -78,6 +78,15 @@
         <div class="max-w-7xl mx-auto px-6 lg:px-8">
             <div class="flex items-center justify-between h-20 transition-all duration-300" id="navbar-container">
                 <div class="flex items-center gap-3">
+                    <!-- Sidebar Toggle (Only for Pemilik & Staff) -->
+                    @auth
+                        @if(Auth::user()->role == 'pemilik' || Auth::user()->role == 'staff')
+                            <button id="sidebar-toggle-btn" class="w-10 h-10 rounded-xl bg-white/50 hover:bg-white text-slate-700 hover:text-primary flex items-center justify-center transition shadow-sm backdrop-blur-sm border border-slate-100">
+                                <i class="fa-solid fa-bars text-lg"></i>
+                            </button>
+                        @endif
+                    @endauth
+
                     <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-10 h-10 object-contain">
                     <span class="font-bold text-xl tracking-tight text-slate-900">NourAlra</span>
                 </div>
@@ -242,6 +251,30 @@
         mobileMenuBtn.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
         });
+
+        // Sidebar Toggle Logic (For Pemilik & Staff)
+        const sidebar = document.getElementById('sidebar');
+        const sidebarToggleBtn = document.getElementById('sidebar-toggle-btn');
+        const mainContentWrapper = document.querySelector('.flex-1.flex.flex-col'); // Select the wrapper
+
+        if (sidebar && sidebarToggleBtn) {
+            sidebarToggleBtn.addEventListener('click', () => {
+                // Toggle Sidebar Visibility
+                sidebar.classList.toggle('-translate-x-full');
+                
+                // Toggle Main Content Margin
+                mainContentWrapper.classList.toggle('md:ml-64');
+                
+                // Toggle Navbar Width
+                if (navbar.classList.contains('w-[calc(100%-16rem)]')) {
+                    navbar.classList.remove('w-[calc(100%-16rem)]', 'right-0');
+                    navbar.classList.add('w-full');
+                } else {
+                    navbar.classList.add('w-[calc(100%-16rem)]', 'right-0');
+                    navbar.classList.remove('w-full');
+                }
+            });
+        }
     </script>
 
     <!-- MAIN CONTENT -->
