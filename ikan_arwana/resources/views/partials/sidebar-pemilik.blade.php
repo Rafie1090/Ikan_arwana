@@ -1,5 +1,5 @@
         @php $isFixed = $fixedOnDesktop ?? true; @endphp
-        <aside id="sidebar" class="fixed inset-y-0 left-0 w-64 bg-white border-r border-slate-200 transform -translate-x-full {{ $isFixed ? 'md:translate-x-0 md:static' : '' }} transition-transform duration-300 z-50 flex flex-col">
+        <aside id="sidebar" class="fixed inset-y-0 left-0 w-64 bg-white border-r border-slate-200 transform -translate-x-full {{ $isFixed ? 'md:translate-x-0 md:static' : '' }} transition-transform duration-300 z-[60] flex flex-col">
             <!-- Logo -->
             <div class="h-16 flex items-center justify-between px-6 border-b border-slate-100">
                 <div class="flex items-center gap-3">
