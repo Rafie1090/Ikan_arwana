@@ -33,7 +33,7 @@
                     <i class="fa-solid fa-home w-5"></i> Halaman Utama
                 </a>
 
-                <a href="{{ url('/#galeri') }}" 
+                <a href="{{ route('dashboard') }}" 
                    class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition text-slate-600 hover:bg-slate-50 hover:text-primary">
                     <i class="fa-solid fa-shop w-5"></i> Katalog Produk
                 </a>
