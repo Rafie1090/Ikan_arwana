@@ -102,7 +102,7 @@
                     <a href="{{ url('/') }}" class="flex items-center gap-3 group">
                         <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-10 h-10 object-contain group-hover:scale-110 transition duration-300">
                         <span class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-slate-900 to-slate-700">
-                            Ikan Arwana
+                            NourAlra
                         </span>
                     </a>
                 </div>
@@ -112,6 +112,18 @@
                     <a href="#home" class="text-sm font-medium text-slate-600 hover:text-primary transition relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full">Home</a>
                     <a href="#panduan" class="text-sm font-medium text-slate-600 hover:text-primary transition relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full">Panduan</a>
                     <a href="#galeri" class="text-sm font-medium text-slate-600 hover:text-primary transition relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-0.5 after:bg-primary after:transition-all after:duration-300 hover:after:w-full">Galeri</a>
+                    
+                    <!-- Cart Icon (Visible for all auth users) -->
+                    @auth
+                    <a href="{{ route('cart.index') }}" class="relative text-slate-600 hover:text-primary transition">
+                        <i class="fa-solid fa-cart-shopping text-xl"></i>
+                        @if(session('cart') && count(session('cart')) > 0)
+                            <span class="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold w-5 h-5 flex items-center justify-center rounded-full">
+                                {{ count(session('cart')) }}
+                            </span>
+                        @endif
+                    </a>
+                    @endauth
                     
                     @if (Route::has('login'))
                         @auth
@@ -386,10 +398,10 @@
         <div class="max-w-7xl mx-auto px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center gap-6">
             <div class="flex items-center gap-3">
                 <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-8 h-8 object-contain">
-                <span class="font-bold text-white">Ikan Arwana</span>
+                <span class="font-bold text-white">NourAlra</span>
             </div>
             <div class="text-sm font-medium">
-                &copy; {{ date('Y') }} Ikan Arwana. All rights reserved.
+                &copy; {{ date('Y') }} NourAlra. All rights reserved.
             </div>
             <div class="flex gap-6">
                 <a href="#" class="hover:text-white transition transform hover:scale-110"><i class="fa-brands fa-instagram text-xl"></i></a>

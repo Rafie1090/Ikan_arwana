@@ -66,7 +66,7 @@
             <div class="flex items-center justify-between h-20 transition-all duration-300" id="navbar-container">
                 <div class="flex items-center gap-3">
                     <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-10 h-10 object-contain">
-                    <span class="font-bold text-xl tracking-tight text-slate-900">Ikan Arwana</span>
+                    <span class="font-bold text-xl tracking-tight text-slate-900">NourAlra</span>
                 </div>
 
                 @php

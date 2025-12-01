@@ -4,7 +4,7 @@
             <div class="h-16 flex items-center justify-between px-6 border-b border-slate-100">
                 <div class="flex items-center gap-3">
                     <img src="{{ asset('images/logo.png') }}" alt="Logo" class="w-8 h-8 object-contain">
-                    <span class="font-bold text-lg text-slate-900">Ikan Arwana</span>
+                    <span class="font-bold text-lg text-slate-900">NourAlra</span>
                 </div>
                 <!-- Close Button (Mobile) -->
                 <button id="sidebar-close" class="md:hidden text-slate-500 hover:text-red-500">

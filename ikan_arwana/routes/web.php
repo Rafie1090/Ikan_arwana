@@ -60,15 +60,7 @@ Route::middleware(['auth', 'role:staff'])->prefix('staff')->group(function () {
     Route::get('/product-stock', [StaffController::class, 'productStock'])->name('staff.product.stock');
     Route::post('/product-stock/{id}', [StaffController::class, 'updateStock'])->name('staff.product.update-stock');
     
-    // User Management
-    Route::resource('users', UserController::class)->names([
-        'index' => 'staff.users.index',
-        'create' => 'staff.users.create',
-        'store' => 'staff.users.store',
-        'edit' => 'staff.users.edit',
-        'update' => 'staff.users.update',
-        'destroy' => 'staff.users.destroy',
-    ]);
+
 });
 
 // ======================
