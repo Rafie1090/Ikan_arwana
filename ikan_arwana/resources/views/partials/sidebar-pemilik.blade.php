@@ -47,7 +47,7 @@
                 <a href="{{ route('pemilik.kolam') }}" 
                    class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition
                           {{ request()->routeIs('pemilik.kolam') ? 'bg-primary text-white shadow-lg shadow-indigo-500/30' : 'text-slate-600 hover:bg-slate-50 hover:text-primary' }}">
-                    <i class="fa-solid fa-water w-5"></i> Manajemen Kolam
+                    <i class="fa-solid fa-water w-5"></i> Manajemen aquarium
                 </a>
 
                 <a href="{{ route('monitoring.air') }}" 
