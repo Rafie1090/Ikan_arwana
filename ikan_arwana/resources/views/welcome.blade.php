@@ -291,8 +291,7 @@
                     </div>
                     <h3 class="text-xl font-bold text-slate-900 mb-3">Ukuran Aquarium</h3>
                     <p class="text-slate-600 leading-relaxed text-sm font-medium">
-                        Siapkan aquarium minimal <span class="text-slate-900 font-bold">150x60x60 cm</span> untuk dewasa. Pastikan penutup rapat karena Arwana suka melompat.
-                    </p>
+                        Siapkan aquarium minimal <span class="text-slate-900 font-bold">150x60x60 cm</span> untuk dewasa.pastikan volume airnya cukup
                 </div>
             </div>
         </div>
