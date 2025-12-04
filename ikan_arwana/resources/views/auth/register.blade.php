@@ -59,7 +59,7 @@
                     </div>
                     <input id="name" type="text" name="name" value="{{ old('name') }}" required autofocus
                         class="pl-10 w-full px-4 py-2.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-primary focus:border-primary transition text-sm placeholder-slate-400 font-medium text-slate-900"
-                        placeholder="Rafi samanudin">
+                        placeholder="Mauskan Nama anda">
                 </div>
                 @error('name')
                     <p class="text-red-500 text-xs mt-1 font-medium">{{ $message }}</p>

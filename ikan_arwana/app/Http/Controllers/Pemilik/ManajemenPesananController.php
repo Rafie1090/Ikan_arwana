@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Pemilik;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Exports\OrdersExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ManajemenPesananController extends Controller
 {
@@ -34,7 +36,6 @@ class ManajemenPesananController extends Controller
 
     public function export()
     {
-        // Placeholder for export logic
-        return back()->with('success', 'Fitur Export Excel akan segera hadir!');
+        return Excel::download(new OrdersExport, 'orders.xlsx');
     }
 }
